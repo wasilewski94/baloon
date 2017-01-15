@@ -1,0 +1,1 @@
+To use with program like VisualGPSView
