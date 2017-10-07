@@ -6,7 +6,7 @@
 #include "hoperf.hpp"
 #include "hoperf_structures.hpp"
 #include <string.h>
-#include "Arduino.h"
+//#include "Arduino.h"
 
 using namespace skik::hoperf;
 
@@ -56,7 +56,6 @@ bool RadioModule::testModule(){
     driver_.readFromUart(buffer, 10);
     driver_.writePin(PinType::CONFIG, Level::HI);
     driver_.waitFor(5);
-    Serial.write(buffer);
     if(strcmp(buffer, "OK"))
         return true;
     else

@@ -14,10 +14,10 @@
 
 #define UART_TX1 15
 #define UART_RX1 16
-#define HCONFIG 3
-#define HSLEEP 9
-#define HSTATUS 7
-#define HRESET 0
+#define HCONFIG 0
+#define HSLEEP 1
+#define HSTATUS 2
+#define HRESET 7
 
 //Treated as main
 int main()
@@ -27,7 +27,7 @@ int main()
 	
 	int fd;
     //if(fd = serialOpen("/dev/ttyS1", 9600)) printf("Error uart");
-    skik::hoperf::ArduinoDriver drv("/dev/ttyS1", HCONFIG, HSLEEP, HSTATUS, HRESET);
+    skik::hoperf::ArduinoDriver drv("/dev/ttyAMA0", HCONFIG, HSLEEP, HSTATUS, HRESET);
     skik::hoperf::RadioModule radio(drv, 9600);
 
     while(1){
