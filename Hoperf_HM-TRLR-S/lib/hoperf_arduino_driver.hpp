@@ -11,7 +11,8 @@
 #define HOPERF_ARDUINO_DRIVER_HPP_
 
 #include <stdint.h>
-#include "SoftwareSerial.h"
+#include "wiringPI.h"
+#include "wiringSerial.h"
 #include "hoperf_driver.hpp"
 #include <stddef.h>
 

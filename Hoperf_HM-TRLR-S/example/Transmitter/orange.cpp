@@ -10,7 +10,7 @@
 #include "wiringPi.h"
 #include "wiringSerial.h"
 #include "hoperf.hpp"
-#include "hoperf_arduino_driver.hpp"
+#include "hoperf_pi_driver.hpp"
 
 #define UART_TX1 15
 #define UART_RX1 16

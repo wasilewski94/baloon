@@ -7,7 +7,6 @@
 
 
 #include "hoperf_arduino_driver.hpp"
-#include "Arduino.h"
 #include "hoperf_structures.hpp"
 
 using namespace skik::hoperf;
