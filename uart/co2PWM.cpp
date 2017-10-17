@@ -5,7 +5,7 @@
 #include <wiringPi.h>
 using namespace std;
 
-const int PWM=5;
+const int PWM=2;
 
 int getPWM()
 {

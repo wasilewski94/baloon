@@ -1,0 +1,9 @@
+[Unit]
+Description=Shutting down when connected 18 pin to VCC
+
+[Service]
+ExecStart=/home/skik/shutdown/poweroff
+
+[Install]
+WantedBy=multi-user.target
+
