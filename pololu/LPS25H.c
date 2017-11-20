@@ -1,38 +1,32 @@
-
 #include <wiringPiI2C.h>
-#include <time.h>
 #include <stdio.h>
+#include <sys/ioctl.h>
+#include <linux/types.h>
+#include <stdint.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <errno.h>
+#include <linux/types.h>
+#include <sys/time.h>
 
 
-void str_time(char *time_to_text, char width){
-	
-	const char time_format[] = "[%T  %d/%m/%y]";
-	time_t actual_time;
-	struct tm* time_info; 
-
-	time(&actual_time);
-	time_info = localtime(&actual_time);
-	strftime(time_to_text, width, time_format, time_info);
-	}
-
+//timestamp
+long getMicrotime(){
+	struct timeval currentTime;
+	gettimeofday(&currentTime, NULL);
+	return currentTime.tv_sec * (uint64_t)1e6 + currentTime.tv_usec;
+}
 
 int main(){
 	short int data_L, data_H, data_XL;
 	int fd = wiringPiI2CSetup(0x5d);
 	char init = 1;
 
-	char time_to_text[21];
-
 	//Data rate: 25Hz and power on pressure sensor
 	wiringPiI2CWriteReg8 (fd, 0x20, 0b11000000);
 
 	data_L = wiringPiI2CReadReg8 (fd, 0x20);
-	//Check:
-	if(data_L != 0b11000000){
-		str_time(time_to_text,21);
-		printf("%s ",time_to_text);
-		printf("Wpisanie sie nie powiodlo\n");
-	}
 
 	//Temperature average , pressure average 
 	data_L = wiringPiI2CReadReg8 (fd, 0x10);
@@ -57,26 +51,24 @@ int main(){
 
 
 	double x = ( (double)((short int)((data_H << 8)| data_L)) / 480.00 )+42.50;
-	str_time(time_to_text,21);
-	printf("#%s ", time_to_text);
-	printf("Temp: \%lf C \n", x );
+	printf("%luus ", getMicrotime());
+    printf("Temp: \%lf C \n", x );
 	//printf("Data_L: \%x \n", data_L);
 	//printf("Data_H: \%x \n", data_H);
 
 	 //Pressure read
 	data_XL = wiringPiI2CReadReg8 (fd, 0x28);
-        data_L = wiringPiI2CReadReg8 (fd, 0x29);
-        data_H = wiringPiI2CReadReg8 (fd, 0x2A);
+    data_L = wiringPiI2CReadReg8 (fd, 0x29);
+    data_H = wiringPiI2CReadReg8 (fd, 0x2A);
 
 	x = (data_H << 16) | (data_L << 8) | (data_XL);
 	x /= 4096;
-	
-	str_time(time_to_text,21);
-	printf("#%s ", time_to_text);
+	printf("%luus ", getMicrotime());
 	printf("Pressure: \%lf hPa \n", x );
         //printf("Data_XL: \%x \n", data_XL);
         //printf("Data_L: \%x \n", data_L);
         //printf("Data_H: \%x \n", data_H);
+    sleep(1);
 	}
 
 	}
