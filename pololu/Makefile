@@ -1,5 +1,5 @@
 all:
-	gcc LPS25H.c -o LPS25H.e -lwiringPi
+	gcc hts221.c -o hts221.e -lwiringPi
 
 clean:
-	rm -f LPS25H.e
+	rm -f hts221.e

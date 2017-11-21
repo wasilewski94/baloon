@@ -43,7 +43,6 @@ int main(){
 	wiringPiI2CWriteReg8 (fd, 0x2E,0xC0);
 	wiringPiI2CWriteReg8 (fd, 0x21,0x40); 
 	
-
 	while(1){
 	//Temperature read
 	data_L = wiringPiI2CReadReg8 (fd, 0x2B);
